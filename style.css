@@ -1,0 +1,106 @@
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #f0f7f0;
+    min-height: 100vh;
+}
+
+/* Navigation */
+.navbar {
+    background: #1a3b2e;
+    padding: 1rem 2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.nav-logo i {
+    color: #5cb85c;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    background: rgba(255,255,255,0.1);
+}
+
+.btn-login, .btn-register, .btn-logout {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-login {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.btn-login:hover {
+    background: white;
+    color: #1a3b2e;
+}
+
+.btn-register {
+    background: #5cb85c;
+    color: white;
+}
+
+.btn-register:hover {
+    background: #4cae4c;
+}
+
+.btn-logout {
+    background: #d9534f;
+    color: white;
+}
+
+.btn-logout:hover {
+    background: #c9302c;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Container */
+.container {

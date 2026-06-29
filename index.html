@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌾 Weather Based Farming Advisory System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-seedling"></i>
+                <span>Farming Advisory</span>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="active">Home</a>
+                <a href="advisory.html">Advisory</a>
+                <a href="history.html">History</a>
+                <a href="market.html">Market</a>
+                <button class="btn-login" onclick="openModal('loginModal')">Login</button>
+                <button class="btn-register" onclick="openModal('registerModal')">Register</button>
+                <button class="btn-logout hidden" id="logoutBtn" onclick="logoutUser()">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>🌾 Smart Farming Advisory System</h1>
+            <p>Get personalized farming recommendations based on your location, crop, soil, and weather conditions</p>
+            <a href="advisory.html" class="btn-primary">
+                <i class="fas fa-rocket"></i> Get Started
+            </a>
+        </div>
+
+        <!-- Features -->
+        <div class="features">
+            <div class="feature-card">
+                <i class="fas fa-map-pin"></i>
+                <h3>Location Based</h3>
+                <p>Tailored advice for your specific region</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-seedling"></i>
+                <h3>Crop Selection</h3>
+                <p>Choose from hundreds of crops</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-cloud-sun-rain"></i>
+                <h3>Weather Integrated</h3>
+                <p>Real-time weather data integration</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Market Prices</h3>
+                <p>Current market rates for your crops</p>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats">
+            <div class="stat-item">
+                <h2>100+</h2>
+                <p>Crops Supported</p>
+            </div>
+            <div class="stat-item">
+                <h2>50+</h2>
+                <p>Disease Predictions</p>
+            </div>
+            <div class="stat-item">
+                <h2>1000+</h2>
+                <p>Farmers Helped</p>
+            </div>
+        </div>
+
+        <!-- How It Works -->
+        <div class="how-it-works">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Enter Location</h3>
+                    <p>Provide your state, district, and village details</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Select Crop & Soil</h3>
+                    <p>Choose your crop and soil type</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Get Advisory</h3>
+                    <p>Receive comprehensive farming recommendations</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
+            <form onsubmit="loginUser(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" placeholder="Enter email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">
+                    <i class="fas fa-arrow-right"></i> Login
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2><i class="fas fa-user-plus"></i> Register</h2>
+            <form onsubmit="registerUser(event)">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="regName" placeholder="Enter name">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="regEmail" placeholder="Enter email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="regPassword" placeholder="Enter password" required>
+                </div>
+                <div class="form-group">
+                    <label>State</label>
+                    <input type="text" id="regState" placeholder="Enter state" required>
+                </div>
+                <div class="form-group">
+                    <label>District</label>
+                    <input type="text" id="regDistrict" placeholder="Enter district" required>
+                </div>
+                <div class="form-group">
+                    <label>Village</label>
+                    <input type="text" id="regVillage" placeholder="Enter village" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">
+                    <i class="fas fa-user-check"></i> Register
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-seedling"></i> Farming Advisory</h3>
+                    <p>Empowering farmers with smart agricultural advice</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="advisory.html">Advisory</a>
+                    <a href="history.html">History</a>
+                    <a href="market.html">Market</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-envelope"></i> support@farmingadvisory.com</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Farming Advisory System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

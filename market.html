@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💰 Market - Farming Advisory System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-seedling"></i>
+                <span>Farming Advisory</span>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="advisory.html">Advisory</a>
+                <a href="history.html">History</a>
+                <a href="market.html" class="active">Market</a>
+                <button class="btn-login" onclick="openModal('loginModal')">Login</button>
+                <button class="btn-register" onclick="openModal('registerModal')">Register</button>
+                <button class="btn-logout hidden" id="logoutBtn" onclick="logoutUser()">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="page-header">
+            <h1><i class="fas fa-chart-bar"></i> Market Prices</h1>
+            <p>Check current market prices for your crops</p>
+        </div>
+
+        <!-- Search Section -->
+        <div class="market-search-card">
+            <h3><i class="fas fa-search"></i> Check Market Price</h3>
+            <div class="market-search">
+                <div class="form-group">
+                    <label><i class="fas fa-seedling"></i> Select Crop</label>
+                    <select id="marketCrop" onchange="updateCropSuggestions()">
+                        <option value="Wheat">Wheat</option>
+                        <option value="Rice">Rice</option>
+                        <option value="Cotton">Cotton</option>
+                        <option value="Sugarcane">Sugarcane</option>
+                        <option value="Maize">Maize</option>
+                        <option value="Potato">Potato</option>
+                        <option value="Tomato">Tomato</option>
+                        <option value="Onion">Onion</option>
+                        <option value="Chilli">Chilli</option>
+                        <option value="Cabbage">Cabbage</option>
+                        <option value="Bajra">Bajra</option>
+                        <option value="Jowar">Jowar</option>
+                        <option value="Groundnut">Groundnut</option>
+                        <option value="Soybean">Soybean</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-map-pin"></i> State</label>
+                    <select id="marketState">
+                        <option value="Punjab">Punjab</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="West Bengal">West Bengal</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    </select>
+                </div>
+                <button class="btn-primary" onclick="fetchMarketPrice()">
+                    <i class="fas fa-search"></i> Check Price
+                </button>
+            </div>
+        </div>
+
+        <!-- Market Results -->
+        <div id="marketResults"></div>
+
+        <!-- Popular Crops -->
+        <div class="popular-crops">
+            <h3><i class="fas fa-fire"></i> Popular Crops This Season</h3>
+            <div class="crop-grid" id="popularCrops">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Price Trends -->
+        <div class="price-trends">
+            <h3><i class="fas fa-chart-line"></i> Price Trends</h3>
+            <div id="trendChart">
+                <canvas id="trendCanvas"></canvas>
+            </div>
+        </div>
+
+        <!-- Market Tips -->
+        <div class="market-tips">
+            <h3><i class="fas fa-lightbulb"></i> Market Tips</h3>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <i class="fas fa-clock"></i>
+                    <h4>Best Time to Sell</h4>
+                    <p>Harvest season prices are usually lower. Store and sell during off-season for better rates.</p>
+                </div>
+                <div class="tip-card">
+                    <i class="fas fa-truck"></i>
+                    <h4>Transportation</h4>
+                    <p>Check mandi distances and transportation costs before selling.</p>
+                </div>
+                <div class="tip-card">
+                    <i class="fas fa-phone-alt"></i>
+                    <h4>Market Intelligence</h4>
+                    <p>Stay updated with daily mandi rates through local agricultural offices.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
+            <form onsubmit="loginUser(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" placeholder="Enter email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">
+                    <i class="fas fa-arrow-right"></i> Login
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2><i class="fas fa-user-plus"></i> Register</h2>
+            <form onsubmit="registerUser(event)">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="regName" placeholder="Enter name">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="regEmail" placeholder="Enter email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="regPassword" placeholder="Enter password" required>
+                </div>
+                <div class="form-group">
+                    <label>State</label>
+                    <input type="text" id="regState" placeholder="Enter state" required>
+                </div>
+                <div class="form-group">
+                    <label>District</label>
+                    <input type="text" id="regDistrict" placeholder="Enter district" required>
+                </div>
+                <div class="form-group">
+                    <label>Village</label>
+                    <input type="text" id="regVillage" placeholder="Enter village" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">
+                    <i class="fas fa-user-check"></i> Register
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/market.js"></script>
+</body>
+</html>

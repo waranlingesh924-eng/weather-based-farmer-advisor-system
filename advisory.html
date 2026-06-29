@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌾 Advisory - Farming Advisory System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-seedling"></i>
+                <span>Farming Advisory</span>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="advisory.html" class="active">Advisory</a>
+                <a href="history.html">History</a>
+                <a href="market.html">Market</a>
+                <button class="btn-login" onclick="openModal('loginModal')">Login</button>
+                <button class="btn-register" onclick="openModal('registerModal')">Register</button>
+                <button class="btn-logout hidden" id="logoutBtn" onclick="logoutUser()">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="page-header">
+            <h1><i class="fas fa-file-alt"></i> Farming Advisory Report</h1>
+            <p>Fill in the details below to get a comprehensive farming advisory</p>
+        </div>
+        
+        <!-- Module 1: User Registration & Location -->
+        <div class="module-card">
+            <div class="module-header">
+                <i class="fas fa-user-plus"></i>
+                <h3>Module 1: User Registration & Location</h3>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="far fa-user"></i> User Name (Optional)</label>
+                    <input type="text" id="userName" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-map-pin"></i> State *</label>
+                    <input type="text" id="state" placeholder="Enter state" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-city"></i> District *</label>
+                    <input type="text" id="district" placeholder="Enter district" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-location-dot"></i> Village/Location *</label>
+                    <input type="text" id="village" placeholder="Enter village" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-sun"></i> Select Climate</label>
+                    <select id="climate">
+                        <option value="Summer">Summer</option>
+                        <option value="Winter">Winter</option>
+                        <option value="Rainy">Rainy</option>
+                        <option value="Spring">Spring</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-cloud"></i> Current Weather</label>
+                    <select id="weather">
+                        <option value="Sunny">☀️ Sunny</option>
+                        <option value="Rainy">🌧️ Rainy</option>
+                        <option value="Cloudy">☁️ Cloudy</option>
+                        <option value="Windy">💨 Windy</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Module 2: Crop Selection -->
+        <div class="module-card">
+            <div class="module-header">
+                <i class="fas fa-tractor"></i>
+                <h3>Module 2: Crop Selection</h3>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fas fa-seedling"></i> Select/Enter Crop Name *</label>
+                    <input type="text" id="cropName" placeholder="e.g., Wheat, Rice, Cotton" value="Wheat">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-calendar-alt"></i> Planting Season (Optional)</label>
+                    <input type="text" id="plantingSeason" placeholder="e.g., October">
+                </div>
+            </div>
+        </div>
+
+        <!-- Module 3: Soil Type Analysis -->
+        <div class="module-card">
+            <div class="module-header">
+                <i class="fas fa-earth-asia"></i>
+                <h3>Module 3: Soil Type Analysis</h3>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fas fa-mountain"></i> Select Soil Type</label>
+                    <select id="soilType">
+                        <option value="Sandy">Sandy</option>
+                        <option value="Clay">Clay</option>
+                        <option value="Loamy" selected>Loamy</option>
+                        <option value="Black">Black</option>
+                        <option value="Red">Red</option>
+                        <option value="Alluvial">Alluvial</option>
+                        <option value="Laterite">Laterite</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn-primary" onclick="generateAdvisory()">
+                <i class="fas fa-microchip"></i> Generate Advisory Report
+            </button>
+            <button class="btn-secondary" onclick="resetForm()">
+                <i class="fas fa-undo-alt"></i> Reset
+            </button>
+        </div>
+
+        <!-- Results Container -->
+        <div id="resultsContainer"></div>
+
+        <!-- Module 9: Thank You Page -->
+        <div id="thankYouContainer" style="display: none;">
+            <div class="thank-you-card">
+                <div class="thank-you-icon">🙏</div>
+                <h2>Thank You, Farmer!</h2>
+                <p>Wishing you a <strong>bountiful & successful</strong> farming season.</p>
+                <div class="thank-you-buttons">
+                    <button class="btn-primary" onclick="resetForm()">
+                        <i class="fas fa-rotate-left"></i> Check Another Crop
+                    </button>
+                    <a href="index.html" class="btn-secondary">
+                        <i class="fas fa-home"></i> Return Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
+            <form onsubmit="loginUser(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" placeholder="Enter email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">
+                    <i class="fas fa-arrow-right"></i> Login
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2><i class="fas fa-user-plus"></i> Register</h2>
+            <form onsubmit="registerUser(event)">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="regName" placeholder="Enter name">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="regEmail" placeholder="Enter email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="regPassword" placeholder="Enter password" required>
+                </div>
+                <div class="form-group">
+                    <label>State</label>
+                    <input type="text" id="regState" placeholder="Enter state" required>
+                </div>
+                <div class="form-group">
+                    <label>District</label>
+                    <input type="text" id="regDistrict" placeholder="Enter district" required>
+                </div>
+                <div class="form-group">
+                    <label>Village</label>
+                    <input type="text" id="regVillage" placeholder="Enter village" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">
+                    <i class="fas fa-user-check"></i> Register
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/advisory.js"></script>
+</body>
+</html>
